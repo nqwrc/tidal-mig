@@ -4,7 +4,7 @@
 document.getElementById('login-button').addEventListener('click', function() {
   // Implement the login functionality here
   // For example, open the TIDAL login page
-  window.open('https://login.tidal.com/');
+  window.open('https://listen.tidal.com/');
 });
 
 // Function to fetch and display favorite tracks
