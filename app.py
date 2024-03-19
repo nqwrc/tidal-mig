@@ -8,7 +8,7 @@ def index():
     return '<a href="/login">Login with Tidal</a>'
     # return '<a href="/login" class="button">Login with Tidal</a>'
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     session_main = tidalapi.Session()
     obj_main, _ = session_main.login_oauth()
