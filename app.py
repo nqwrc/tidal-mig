@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # return '<a href="/login">Login with Tidal</a>'
-    return '<a href="/login" class="button">Login with Tidal</a>'
+    render_template(index.html)
 
 @app.route('/login')
 def login():
