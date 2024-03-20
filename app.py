@@ -11,7 +11,8 @@ url_main = obj_main.verification_uri_complete
 @app.route('/')
 def index():
     print(url_main)
-    return render_template('index.html', url_main=url_main) 
+    return '<a href="{{ url_main }}">{{ url_main }}</a>'
+    # return render_template('index.html', url_main=url_main) 
 
 
 # @app.route('/login', methods=['GET', 'POST'])
