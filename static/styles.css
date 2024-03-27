@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ... (Other styles from previous example) ... */
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto; /* Allow scrolling within the main area */
+    justify-content: space-around; /* Distribute sections evenly */
+}
+/* ... other styles ... */
+
+
+.section-container {
+    flex: 1 0 25%; /* Grow to fill space, 25% minimum width */
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enable scrolling within each section */
+    margin-bottom: 20px; /* Spacing between sections */
+
+}
+
+.scrollable-area {
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: auto;  /* Enable vertical scroll */
+}
+.tracks-list, .albums-grid {
+    /* Add specific styling for these if needed */
+}
+
+.album-item {
+    /* Add styling to individual album items */
+}

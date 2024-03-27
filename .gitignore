@@ -2,3 +2,11 @@ my_playlist_venv/
 instructions.txt
 migrator.ipynb
 migrator.ipynb
+tidal-favorites/albums.csv
+tidal-favorites/artists.csv
+tidal-favorites/tracks.csv
+tidal-favorites/videos.csv
+tidal-favorites/playlists.csv
+.vscode/settings.json
+__pycache__/tidal_favorites.cpython-312.pyc
+.session.yml
