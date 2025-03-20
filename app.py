@@ -80,23 +80,39 @@ def post_login():
     artists = tidal_session.user.favorites.artists(),
     playlists = tidal_session.user.favorites.playlists(),
 
-    return render_template('post_login.html', tracks=tracks, albums=albums, videos=videos, artists=artists,
-                           playlists=playlists)
-    
+    flat_albums = [item for sublist in albums for item in sublist] if albums and isinstance(
+        albums[0], list) else albums
+    flat_artists = [item for sublist in artists for item in sublist] if artists and isinstance(
+        artists[0], list) else artists
+    flat_videos = [item for sublist in videos for item in sublist] if videos and isinstance(
+        videos[0], list) else videos
+    flat_playlists = [item for sublist in playlists for item in sublist] if playlists and isinstance(
+        playlists[0], list) else playlists
+
+    return render_template('post_login.html',
+                           tracks=tracks,
+                           albums=flat_albums,
+                           artists=flat_artists,
+                           videos=flat_videos,
+                           playlists=flat_playlists)
+
+
 @app.route('/import_favorites', methods=['POST'])
 def import_favorites():
     file = request.files['csvFile']
 
     # Create an in-memory file-like object from the uploaded data
-    csv_stream = io.StringIO(file.stream.read().decode("UTF-8"), newline="") 
+    csv_stream = io.StringIO(file.stream.read().decode("UTF-8"), newline="")
     csv_reader = csv.reader(csv_stream)
-    
-    errors = tidal_favorites_manager.upload_favorites(csv_reader, file.filename)  # Pass the reader directly
+
+    errors = tidal_favorites_manager.upload_favorites(
+        csv_reader, file.filename)  # Pass the reader directly
 
     if errors:
         return f"Errors during import: {', '.join(errors)}"
     else:
         return "Favorites imported successfully!"
+
 
 @app.route('/export_favorites', methods=['GET'])
 def export_favorites():
@@ -109,6 +125,7 @@ def export_favorites():
 
 #     # Store or process the favorites as needed
 #     return "Favorites imported!"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

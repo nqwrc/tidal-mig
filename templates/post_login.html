@@ -1,105 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Login Page</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tidal Music Library</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Your Music Library</h1>
-    </header>
+  <header class="header">
+    <div class="header-content">
+      <h1>Tidal Music Library</h1>
+      <div class="button-group">
+        <form id="uploadForm" action="/import_favorites" method="POST" enctype="multipart/form-data">
+          <input type="file" id="csvFile" name="csvFile" accept=".csv" style="display: none;" />
+          <button type="button" class="btn" onclick="document.getElementById('csvFile').click();">Import CSV</button>
+          <button type="submit" class="btn">Sync</button>
+        </form>
+        <form id="downloadForm" action="/export_favorites" method="GET" enctype="multipart/form-data">
+          <button type="submit" class="btn">Export CSV</button>
+        </form>
+      </div>
+    </div>
+  </header>
 
-x    <main>
-        <section class="section-container">
-            <h2>Tracks : {{ tracks|length }}</h2>
-            <div class="scrollable-area">
-            <div class="tracks-list"> 
-                {% for track in tracks %}
-                    <p>{{ track.name }}</p>
-                {% endfor %}
-            </div>
-            </div>
-        </section>
+  <!-- Category Selection Section -->
+  <section id="categorySelection" class="category-seleceq eqetion">
+      <button class="btn category-btn" onclick="showCategory('tracks')">Tracks ({{ tracks|length }})</button>
+      <button class="btn category-btn" onclick="showCategory('albums')">Albums ({{ albums|length }})</button>
+      <button class="btn category-btn" onclick="showCategory('artists')">Artists ({{ artists|length }})</button>
+      <button class="btn category-btn" onclick="showCategory('videos')">Videos ({{ videos|length }})</button>
+      <button class="btn category-btn" onclick="showCategory('playlists')">Playlists ({{ playlists|length }})</button>
+    </section>
 
-        <section class="section-container">
-            {% for album in albums %}
-                <h2>Albums : {{ album|length }}</h2>
-                <div class="albums-grid"> 
-                <div class="scrollable-area">
-                <div class="album-item"> 
-                    {% for a in album %}
-                        <p>{{ a.name }}</p>
-                    {% endfor %}
-                </div> 
-            {% endfor %}
-                </div>
-                </div>
-        </section>
+  {% for category, items in {'tracks': tracks, 'albums': albums, 'artists': artists, 'videos': videos, 'playlists': playlists}.items() %}
+    <section id="{{ category }}View" class="category-view" style="display:none;">
+      <h2>{{ category.capitalize() }}</h2>
+      <div class="scrollable-content">
+        <ul>
+          {% for item in items %}
+            <li>{{ item.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button class="btn btn-secondary" onclick="backToCategories()">Back</button>
+    </section>
+  {% endfor %}
 
-        <section class="section-container">
-            {% for artist in artists %}
-                <h2>Artists : {{ artist|length }}</h2>
-                <div class="scrollable-area">
-                <div class="artists-grid"> 
-                <div class="artist-item"> 
-                    {% for a in artist %}
-                        <p>{{ a.name }}</p>
-                    {% endfor %}
-                </div> 
-            {% endfor %}
-                </div>
-                </div>
-        </section>
-
-        <section class="section-container">
-            {% for video in videos %}
-                <h2>Videos : {{ video|length }}</h2>
-                <div class="scrollable-area">
-                <div class="videos-grid"> 
-                <div class="video-item"> 
-                    {% for a in video %}
-                        <p>{{ a.name }}</p>
-                    {% endfor %}
-                </div> 
-            {% endfor %}
-                </div>
-                </div>
-        </section>
-
-        <section class="section-container">
-            {% for playlist in playlists %}
-                <h2>Playlist : {{ playlist|length }}</h2>
-                <div class="scrollable-area">
-                <div class="playlists-grid"> 
-                <div class="playlist-item"> 
-                    {% for a in playlist %}
-                        <p>{{ a.name }}</p>
-                    {% endfor %}
-                </div> 
-            {% endfor %}
-                </div>
-                </div>
-        </section>
-
-        <section class="section">
-            <form id="uploadForm" action="/import_favorites" method="POST" enctype="multipart/form-data"> 
-                <input type="file" id="csvFile" name="csvFile" accept=".csv" />
-                <button type="submit">Import and Sync CSV files</button>
-            </form>
-        </section>
-        
-        <section class="section">
-            <form id="downloadForm" action="/export_favorites" method="GET" enctype="multipart/form-data"> 
-                <button class="download-csv">Download all CSV</button> 
-                </form>
-        </section>
-        
-        </main>
-        <script src="../static/script.js"></script>
-
+  <!-- Existing content (if any) can go here -->
+  <main>
+    <!-- Other sections or cards can be added below -->
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+ 

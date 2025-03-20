@@ -1,34 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tidal Playlist Manager</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tidal Playlist Manager</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <p>Please click the link to authenticate with Tidal:</p>
-    <button onclick="callLoginFunction()">Login to Tidal</button>
-
-    <script>
-        function callLoginFunction() {
-            fetch('/login', {
-                method: 'POST' // Send a POST request to trigger the login function
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/post_login'; // Redirect to post-login page if login is successful
-                } else {
-                    console.error('Could not connect to Tidal');
-                }
-            })
-            .then(data => {
-                console.log(data); // You can handle the response data here
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-    </script>
+  <div class="container">
+    <p>Click the button below to connect with Tidal:</p>
+    <button class="btn btn-login" onclick="handleLogin()">Sign In with Tidal</button>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
